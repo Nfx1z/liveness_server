@@ -8,8 +8,11 @@ def delete_user(user_id):
     db.session.execute(sql, {
         "id": user_id,
         })
-    db.session.commit()
-    return "Successfully deleted user!"
+    try:
+        db.session.commit()
+        return True, "Successfully deleted user!"
+    except:
+        return False, "Failed to delete user!"
 
     
 def check_username(username):

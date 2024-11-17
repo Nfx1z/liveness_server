@@ -98,7 +98,6 @@ Request Body:
 > [!IMPORTANT]
 >
 > - The request body is mandatory.
-> - The request body must be at least 5 characters long.
 
 Response Body Success:
 
@@ -115,6 +114,24 @@ Response Body Failed:
 {
   "status_code": 400,
   "message": "Username and Password is required"
+}
+```
+
+Response wrong username:
+
+```bash
+{
+  "status_code": 400,
+  "message": "Username not found!"
+}
+```
+
+Response wrong password:
+
+```bash
+{
+  "status_code": 400,
+  "message": "Password is incorrect!"
 }
 ```
 
@@ -137,16 +154,11 @@ Response Success:
 
 ### Delete Account
 
-Endpoint: DELETE /auth/delete
+Endpoint: DELETE /user/delete
 
-Request Body:
+Request Cookies:
 
-```bash
-{
-  "username": "username",
-  "password": "password"
-}
-```
+- X-LIVENESS-TOKEN
 
 Response Success:
 
@@ -162,25 +174,16 @@ Response Body Failed:
 ```bash
 {
   "status_code": 400,
-  "message": "Username and Password is required!"
+  "message": "Unauthorized users"
 }
 ```
 
-Response wrong username:
+Response Delete Failed:
 
 ```bash
 {
   "status_code": 400,
-  "message": "Username not found!"
-}
-```
-
-Response wrong password:
-
-```bash
-{
-  "status_code": 400,
-  "message": "Password is incorrect!"
+  "message": "Failed to delete user!"
 }
 ```
 
