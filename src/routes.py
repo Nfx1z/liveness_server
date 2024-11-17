@@ -1,11 +1,12 @@
+from flask import jsonify, request, Blueprint
 from src.controller import (
     login_controller,
     register_controller,
     logout_controller,
     main_controller,
     home_controller,
+    delete_controller,
 )
-from flask import jsonify, request, Blueprint
 
 bp = Blueprint("main", __name__)
 
@@ -14,7 +15,6 @@ bp = Blueprint("main", __name__)
 def register():
     request_json = request.get_json()
     return register_controller(request_json)
-
 
 @bp.route("/auth/login", methods=["POST"])
 def login():
@@ -26,11 +26,15 @@ def login():
 def logout():
     return logout_controller()
 
+@bp.route("/auth/delete", methods=["DELETE"])
+def delete():
+    request_json = request.get_json()
+    return delete_controller(request_json)
+
 
 @bp.route("/", methods=["GET"])
 def main():
     return main_controller()
-
 
 @bp.route("/home", methods=["GET"])
 def home():

@@ -1,9 +1,31 @@
-from src.service import RegisterModel, Loginmodel
 from flask import jsonify, make_response
+from src.service import RegisterModel, Loginmodel, DeleteUserModel
 from src.repository import check_username, insert_account, get_fullname
 from src.helper import generate_jwt
 from src.variable import EXPIRES
 from src.helper import decode_jwt
+
+def delete_controller(request_json):
+    username = request_json.get("username")
+    password = request_json.get("password")
+
+    # delete user from database
+    deleted_user = DeleteUserModel(username, password)
+
+    # validate request JSON
+    isValid, message = deleted_user.validation(password)
+    # response error
+    if not isValid:
+        return jsonify({"status_code": 400, "message": message["error"]}), 400
+
+    # response success
+    success_message = (
+        jsonify({"status_code": 200, "message": message}),
+        200,
+    )
+    response = make_response(success_message)
+
+    return response
 
 
 def register_controller(request_json):

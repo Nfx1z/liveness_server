@@ -135,6 +135,55 @@ Response Success:
 }
 ```
 
+### Delete Account
+
+Endpoint: DELETE /auth/delete
+
+Request Body:
+
+```bash
+{
+  "username": "username",
+  "password": "password"
+}
+```
+
+Response Success:
+
+```bash
+{
+  "status_code": 200,
+  "message": "Successfully deleted user!"
+}
+```
+
+Response Body Failed:
+
+```bash
+{
+  "status_code": 400,
+  "message": "Username and Password is required!"
+}
+```
+
+Response wrong username:
+
+```bash
+{
+  "status_code": 400,
+  "message": "Username not found!"
+}
+```
+
+Response wrong password:
+
+```bash
+{
+  "status_code": 400,
+  "message": "Password is incorrect!"
+}
+```
+
 ## How to run
 
 ### Create Python 3 virtual environment
@@ -160,6 +209,6 @@ pip install -r requirements.txt
 Run in development mode to listen every change
 
 ```bash
-export FLASK_APP=src/app.py
+export FLASK_APP=main.py
 flask --debug run -h 0.0.0.0
 ```

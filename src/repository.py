@@ -1,8 +1,17 @@
+from datetime import datetime
 from sqlalchemy import text
 from src.database import db
-from datetime import datetime
 
+# delete user from SQL database
+def delete_user(user_id):
+    sql = text("DELETE FROM users WHERE id = :id")
+    db.session.execute(sql, {
+        "id": user_id,
+        })
+    db.session.commit()
+    return "Successfully deleted user!"
 
+    
 def check_username(username):
     sql = text("SELECT id FROM users WHERE username = :username LIMIT 1")
     result = db.session.execute(sql, {"username": username})
