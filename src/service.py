@@ -37,6 +37,7 @@ class RegisterModel:
 
 class Loginmodel:
     # dika properties
+    MIN_INPUT_LENGTH = 5
     def __init__(self, username, password):
         self.username = username
         self.password = password
@@ -44,17 +45,32 @@ class Loginmodel:
     # check username and password input
     def validation(self):
         errors = {}
-        
+
+# ======================================================================================      
         # check if username and password is empty
         if not self.username or not self.password:
             errors["error"] = "Username and Password is required!"
             return False, errors
 
+# ======================================================================================
+        # check username and password length
+        username_length = len(self.username)
+        password_length = len(self.password)
+        if ( username_length < self.MIN_INPUT_LENGTH
+            or password_length < self.MIN_INPUT_LENGTH ):
+            errors["error"] = (
+                f"Username or Password at least {self.MIN_INPUT_LENGTH} characters"
+            )
+            return False, errors
+
+# ======================================================================================
         # check username in databas, return user id
-        if check_username(self.username) == None:
+        user_id = check_username(self.username)
+        if user_id == None:
             errors["error"] = "Username not found!"
             return False, errors
 
+# ======================================================================================
         # check password
         bytes_pass = self.password.encode("utf-8")
         # retrieve hashed password from database

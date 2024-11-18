@@ -98,6 +98,7 @@ Request Body:
 > [!IMPORTANT]
 >
 > - The request body is mandatory.
+> - The request body must be at least 5 characters long.
 
 Response Body Success:
 
@@ -114,6 +115,13 @@ Response Body Failed:
 {
   "status_code": 400,
   "message": "Username and Password is required"
+}
+```
+
+```bash
+{
+  "status_code": 400,
+  "message": "Username or Password at least 5 characters"
 }
 ```
 
